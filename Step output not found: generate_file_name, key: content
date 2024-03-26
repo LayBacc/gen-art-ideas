@@ -1,0 +1,46 @@
+// Remix of the first p5.js example
+// This version adapts the original by adding a bouncing effect and changing colors dynamically
+
+let x = 50;
+let y = 50;
+let xSpeed = 3;
+let ySpeed = 2;
+let size = 50;
+let r = 0;
+let g = 0;
+let b = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  // Initial random color
+  r = random(255);
+  g = random(255);
+  b = random(255);
+}
+
+function draw() {
+  background(220);
+
+  // Change the circle's color when it hits a wall
+  if (x > width - size / 2 || x < size / 2) {
+    r = random(255);
+    g = random(255);
+    b = random(255);
+    xSpeed *= -1; // Reverse direction
+  }
+
+  if (y > height - size / 2 || y < size / 2) {
+    r = random(255);
+    g = random(255);
+    b = random(255);
+    ySpeed *= -1; // Reverse direction
+  }
+
+  // Move the circle
+  x += xSpeed;
+  y += ySpeed;
+
+  // Draw the circle
+  fill(r, g, b);
+  ellipse(x, y, size, size);
+}

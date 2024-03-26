@@ -1,0 +1,41 @@
+// Inspired by a blend of the above examples
+// This script creates a canvas and features an interactive animated circle
+// The circle changes its size based on mouse position
+// New twist: The color and speed of the circle's growth also change dynamically
+
+let circleSize = 50;
+let growthRate = 1;
+let colorChange = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  noStroke();
+}
+
+function draw() {
+  background(220);
+  
+  // Change color based on the x position of the mouse
+  // Colors cycle through hues as the mouse moves left to right
+  colorMode(HSB);
+  let currentColor = map(mouseX, 0, width, 0, 360);
+  fill(currentColor, 100, 100);
+  
+  // Dynamically update the circle's radius
+  // Inverse relationship with mouseY position for an interesting effect
+  let maxSize = map(mouseY, 0, height, 100, 400);
+  circleSize += growthRate;
+  if (circleSize > maxSize || circleSize < 50) {
+    growthRate *= -1; // Change direction of growth
+    colorChange += 50; // Sudden change in color hue
+    if (colorChange > 255) {
+      colorChange = 0;
+    }
+  }
+  
+  // Draw the circle at the center of the screen
+  circle(width / 2, height / 2, circleSize);
+  
+  // Adding a twist: Let's make the speed of the circle's growth vary with mouse position
+  growthRate = map(mouseX, 0, width, 0.5, 5);
+}
